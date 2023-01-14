@@ -114,6 +114,27 @@ namespace KompasWrapper
             doc2dOut.ksRectangle(_connector.DrawRectangle(external, external, width - external * 2, length - external * 2));
             sketchOuter.EndEdit();
             _connector.СreateCutExtrusion(sketchOuter, IceCubeDeep, 0);
+
+            var handleOffsetPlane = _connector.CreateOffsetPlane(Obj3dType.o3d_planeXOZ,
+                deep/2);
+            var handlesSketch = _connector.CreateSketch(Obj3dType.o3d_planeXOZ, handleOffsetPlane);
+            var handelsDoc2d = (ksDocument2D)handlesSketch.BeginEdit();
+
+            handelsDoc2d.ksLineSeg(0, width / 2 - width / 10, -deep / 2, width / 2 - width / 10, 1);
+            handelsDoc2d.ksLineSeg(-deep/2, width / 2 - width / 10, -deep / 2, width / 2 + width / 10, 1);
+            handelsDoc2d.ksLineSeg(0, width / 2 + width / 10, -deep / 2, width / 2 + width / 10, 1);
+
+            handelsDoc2d.ksLineSeg(length, width / 2 - width / 10, length + deep / 2, width / 2 - width / 10, 1);
+            handelsDoc2d.ksLineSeg(length + deep / 2, width / 2 - width / 10, length + deep / 2, width / 2 + width / 10, 1);
+            handelsDoc2d.ksLineSeg(length, width / 2 + width / 10, length + deep / 2, width / 2 + width / 10, 1);
+
+            handlesSketch.EndEdit();
+            _connector.СreateExtrusionThin(handlesSketch, deep / 5);
+        }
+
+        public void IceMoldBuilder()
+        {
+            throw new NotImplementedException();
         }
     }
 }

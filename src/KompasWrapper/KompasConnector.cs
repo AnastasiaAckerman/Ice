@@ -203,7 +203,50 @@ namespace KompasWrapper
                 (short)Direction_Type.dtReverse;
             extrusionDef.SetSketch(sketch);
             extrusionEntity.Create();
-            
+        }
+
+        /// <summary>
+        /// Метод осущетсвляющий выдавливание с стенками
+        /// </summary>
+        /// <param name="sketch">Эскиз</param>
+        /// <param name="depth">Расстояние выдавливания</param>
+        public void СreateExtrusionThin(ksSketchDefinition sketch,
+            double depth, bool side = true)
+        {
+            var extrusionEntity = (ksEntity)Part.NewEntity(
+                (short)ksObj3dTypeEnum.o3d_bossExtrusion);
+            var extrusionDef = (ksBossExtrusionDefinition)extrusionEntity
+                .GetDefinition();
+            extrusionDef.SetThinParam(true, 15, 2, 2);
+
+
+            extrusionDef.SetSideParam(side,
+                (short)End_Type.etBlind, depth);
+            extrusionDef.directionType = side
+                ? (short)Direction_Type.dtMiddlePlane
+                : (short)Direction_Type.dtNormal;
+            extrusionDef.SetSketch(sketch);
+            extrusionEntity.Create();
+        }
+
+        /// <summary>
+        /// Метод смещающий плоскость
+        /// </summary>
+        /// <param name="plane">Плоскость</param>
+        /// <param name="offset">Расстояние смещения</param>
+        /// <returns>Объект смещения</returns>
+        public ksEntity CreateOffsetPlane(Obj3dType plane, double offset)
+        {
+            var offsetEntity = (ksEntity)
+                Part.NewEntity((short)Obj3dType.o3d_planeOffset);
+            var offsetDef = (ksPlaneOffsetDefinition)offsetEntity
+                .GetDefinition();
+            offsetDef.SetPlane((ksEntity)
+                Part.NewEntity((short)plane));
+            offsetDef.offset = offset;
+            offsetDef.direction = true;
+            offsetEntity.Create();
+            return offsetEntity;
         }
     }
 }
