@@ -26,7 +26,7 @@ namespace StressTest
             ulong usedMemory = 0;
             while (usedMemory * 0.96 <= computerInfo.TotalPhysicalMemory)
             {
-                iceMoldBuilder.IceMoldBuilder();
+                iceMoldBuilder.BuilIceMold();
                 usedMemory = (computerInfo.TotalPhysicalMemory - computerInfo.AvailablePhysicalMemory);
                 streamWriter.WriteLine(
                     $"{++modelCounter}\t{stopWatch.Elapsed:hh\\:mm\\:ss}\t{usedMemory}");

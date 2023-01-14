@@ -41,6 +41,7 @@ namespace KompasWrapper
         /// <summary>
         /// Метод строящий форму для льда
         /// </summary>
+        // TODO: грам ошибка
         public void BuilIceMold()
         {
             _connector.Start();
@@ -130,11 +131,6 @@ namespace KompasWrapper
 
             handlesSketch.EndEdit();
             _connector.СreateExtrusionThin(handlesSketch, deep / 5);
-        }
-
-        public void IceMoldBuilder()
-        {
-            throw new NotImplementedException();
         }
     }
 }
